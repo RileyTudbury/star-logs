@@ -1,7 +1,9 @@
 import express from "express";
 import logsService from "../services/LogsService";
+import commentsService from "../services/CommentsService"
 
 export default class LogsController {
+
 
   constructor() {
     this.router = express
@@ -9,9 +11,11 @@ export default class LogsController {
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll)
       .get("/:id", this.getbyId)
+      .get("/:id/comments", this.getCommentsByLogId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
+
   }
 
   async getAll(req, res, next) {
@@ -28,6 +32,15 @@ export default class LogsController {
       let data = await logsService.getById(req.params.id)
       res.send(data)
 
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getCommentsByLogId(req, res, next) {
+    try {
+      let data = await commentsService.getCommentsByLogId(req.params.id)
+      res.send(data)
     } catch (error) {
       next(error)
     }

@@ -5,14 +5,17 @@ const _repository = mongoose.model("Comment", Comment);
 
 class CommentsService {
 
+
   async getAll() {
     return await _repository.find({});
   }
 
   async getById(id) {
-    await _repository.findById(id)
+    return await _repository.findById(id)
   }
-
+  async getCommentsByLogId(id) {
+    return await _repository.find({ logId: id })
+  }
   async create(rawData) {
     return await _repository.create(rawData)
   }
