@@ -6,7 +6,7 @@ const Log = new Schema(
   {
     author: { type: String, required: true },
     title: { type: String, required: true },
-    shipId: { type: objectId, required: true }
+    shipId: { type: objectId, ref: "Ship", required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

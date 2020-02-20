@@ -5,12 +5,17 @@ const _repository = mongoose.model("Log", Log);
 
 class LogsService {
 
+
   async getAll() {
     return await _repository.find({});
   }
 
   async getById(id) {
     await _repository.findById(id)
+  }
+
+  async getLogsByShipId(id) {
+    return await _repository.find({ shipId: id })
   }
 
   async create(rawData) {
