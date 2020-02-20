@@ -18,6 +18,10 @@ class LogsService {
     return await _repository.find({ shipId: id })
   }
 
+  async getLogsByAuthor(author) {
+    return await _repository.find({ author })
+  }
+
   async create(rawData) {
     return await _repository.create(rawData)
   }

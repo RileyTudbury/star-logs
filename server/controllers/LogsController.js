@@ -10,6 +10,7 @@ export default class LogsController {
       .Router()
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll)
+      .get("/:author", this.getLogsByAuthor)
       .get("/:id", this.getbyId)
       .get("/:id/comments", this.getCommentsByLogId)
       .post("", this.create)
@@ -45,6 +46,16 @@ export default class LogsController {
       next(error)
     }
   }
+
+  async getLogsByAuthor(req, res, next) {
+    try {
+      let data = await logsService.getLogsByAuthor(req.params.author)
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
 
   async create(req, res, next) {
     try {
